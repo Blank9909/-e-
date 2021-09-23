@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.yjxxt.server.pojo.Admin;
 import com.yjxxt.server.mapper.AdminMapper;
+import com.yjxxt.server.pojo.RespBean;
 import com.yjxxt.server.service.IAdminService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,16 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         updateWrapper.eq("id",admin.getId());
         updateWrapper.set("name",admin.getName());
         return this.update(updateWrapper);
+    }
+
+    @Override
+    public RespBean login(String username, String password) {
+        return null;
+    }
+
+    @Override
+    public Admin getAdminByUserName(String username) {
+        return null;
     }
 
 }
