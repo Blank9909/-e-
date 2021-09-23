@@ -22,7 +22,7 @@ public class LoginController {
     @ApiOperation(value = "登录之后返回token")
     @RequestMapping("login")
     public RespBean login(AdminLoginParam adminLoginParam){
-        return iAdminService.login(adminLoginParam.getUsername(),adminLoginParam.getPassword());
+        return iAdminService.login(adminLoginParam.getUsername(),adminLoginParam.getPassword(),adminLoginParam.getCode());
     }
 
     @ApiOperation(value = "获取当前用户信息")

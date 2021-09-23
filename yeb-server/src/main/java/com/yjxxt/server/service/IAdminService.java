@@ -23,7 +23,7 @@ public interface IAdminService extends IService<Admin> {
      * @param password
      * @return
      */
-    RespBean login(String username,String password);
+    RespBean login(String username,String password,String code);
 
     /**
      * 根据用户名获取用户信息
