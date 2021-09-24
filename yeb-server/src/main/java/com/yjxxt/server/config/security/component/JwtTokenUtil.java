@@ -16,12 +16,14 @@ import java.util.Map;
  */
 @Component
 public class JwtTokenUtil {
+
     private static final String CLAIM_KEY_USERNAME = "sub";
     private static final String CLAIM_KEY_CREATED = "created";
     @Value("${jwt.secret}")
     private String secret;
     @Value("${jwt.expiration}")
     private Long expiration;
+
     /**
      * 根据负载生成JWT Token
      *

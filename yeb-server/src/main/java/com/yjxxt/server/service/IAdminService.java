@@ -13,7 +13,7 @@ import com.yjxxt.server.pojo.RespBean;
  * @since 2021-09-22
  */
 public interface IAdminService extends IService<Admin> {
-    Admin queryAdminByName(String username);
+    Admin queryAdminByUserName(String username);
 
     Boolean updateAdminByParams(Admin admin);
 
