@@ -3,11 +3,12 @@ package com.yjxxt.server.controller;
 
 import com.yjxxt.server.pojo.Admin;
 import com.yjxxt.server.service.IAdminService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -19,39 +20,51 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/admin")
+@Api(tags = "用户管理模块")
 public class AdminController {
 
     @Autowired
     private IAdminService iAdminService;
 
     @GetMapping("/{id}")
+    @ApiOperation(value = "用户详情查询")
     public Admin findAdminById(@PathVariable Integer id){
         return iAdminService.getById(id);
     }
 
     @GetMapping("username/{username}")
+    @ApiOperation(value = "根据用户姓名查询用户详情")
     public Admin findAdminByName(@PathVariable String username){
         return iAdminService.queryAdminByUserName(username);
     }
 
-    @RequestMapping("add")
+    @PutMapping("add")
+    @ApiOperation(value = "保存用户记录")
     public void addAdmin(Admin admin){
         iAdminService.save(admin);
     }
 
-    @RequestMapping("remove")
+    @DeleteMapping("remove")
+    @ApiOperation(value = "删除用户记录")
     public void removeAdmin(Integer id){
         iAdminService.removeById(id);
     }
 
-    @RequestMapping("change")
+    @PostMapping("change")
+    @ApiOperation(value = "多条件更新用户记录")
     public void changeAdmin(Admin admin){
         iAdminService.updateAdminByParams(admin);
     }
 
-    @RequestMapping("changeAdminById")
+    @PostMapping("changeAdminById")
+    @ApiOperation(value = "更新用户记录")
     public void changeAdminById(Admin admin){
         iAdminService.updateById(admin);
     }
 
+    @GetMapping
+    @ApiOperation(value = "用户详情查询")
+    public Admin info(Authentication authentication){
+        return (Admin) authentication.getPrincipal();
+    }
 }

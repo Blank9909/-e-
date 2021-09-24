@@ -47,7 +47,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     private HttpSession httpSession;
 
     @Override
-    public Admin queryAdminByName(String username) {
+    public Admin queryAdminByUserName(String username) {
         return this.getOne(new QueryWrapper<Admin>().eq("username",username));
     }
 

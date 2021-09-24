@@ -7,12 +7,14 @@ import com.yjxxt.server.service.IAdminService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
 
-@Api(tags = "LoginController")
+@Api(tags = "登录模块")
 @RestController
 public class LoginController {
 
@@ -20,13 +22,14 @@ public class LoginController {
     private IAdminService iAdminService;
 
     @ApiOperation(value = "登录之后返回token")
-    @RequestMapping("login")
+    @PostMapping("login")
     public RespBean login(AdminLoginParam adminLoginParam){
         return iAdminService.login(adminLoginParam.getUsername(),adminLoginParam.getPassword(),adminLoginParam.getCode());
     }
 
+
+    @GetMapping("/admin/info")
     @ApiOperation(value = "获取当前用户信息")
-    @RequestMapping("/admin/info")
     public Admin getAdmininfo(Principal principal){
         if(null==principal){
             return null;
@@ -38,8 +41,9 @@ public class LoginController {
         return admin;
     }
     
+
+    @PostMapping("logout")
     @ApiOperation(value ="退出成功")
-    @RequestMapping("logout")
     public RespBean logout(){
         return RespBean.success("注销成功！");
     }

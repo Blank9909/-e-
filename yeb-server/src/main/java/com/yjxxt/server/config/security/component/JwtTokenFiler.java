@@ -30,7 +30,6 @@ import java.io.IOException;
  * 6.设置登录信息
  * 7.过滤器放行
  */
-@Component
 public class JwtTokenFiler extends OncePerRequestFilter {
 
     @Value("${jwt.tokenHeader}")

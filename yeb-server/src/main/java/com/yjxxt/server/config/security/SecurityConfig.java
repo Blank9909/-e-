@@ -1,6 +1,10 @@
 package com.yjxxt.server.config.security;
 
+import com.yjxxt.server.config.security.component.JwtTokenFiler;
+import com.yjxxt.server.config.security.component.YebAccessDeniedHandler;
+import com.yjxxt.server.config.security.component.YebAuthenticationEntryPoint;
 import com.yjxxt.server.service.IAdminService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.annotation.Resource;
 
@@ -20,6 +25,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Resource
     private IAdminService iAdminService;
+
+    @Autowired
+    private YebAccessDeniedHandler yebAccessDeniedHandler;
+
+    @Autowired
+    private YebAuthenticationEntryPoint yebAuthenticationEntryPoint;
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -35,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/favicon.ico",
                 "/webjars/**",
                 "/captcha",
-                "swagger-resources/**",
+                "/swagger-resources/**",
                 "/v2/api-docs/**");
     }
 
@@ -50,7 +61,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated();
 
         //添加过滤器 在UsernamePassWordAuthenticationFilter 执行前执行
-        http.addFilterBefore()
+        http.addFilterBefore(jwtTokenFiler(), UsernamePasswordAuthenticationFilter.class);
+
+        //用户未登录或权限不足
+        http.exceptionHandling()
+                .accessDeniedHandler(yebAccessDeniedHandler)
+                .authenticationEntryPoint(yebAuthenticationEntryPoint);
     }
 
     @Bean
@@ -70,6 +86,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 return userDetails;
             }
         };
+    }
+
+    @Bean
+    public JwtTokenFiler jwtTokenFiler(){
+        return new JwtTokenFiler();
     }
 
 }
