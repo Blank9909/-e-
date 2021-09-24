@@ -17,11 +17,13 @@ public class YebAccessDeniedHandler implements AccessDeniedHandler {
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException e) throws IOException, ServletException {
-        response.setContentType("application/json;charset=utf-8");
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("application/json");
+        //response.setContentType("application/json;charset=utf-8");
         //输出流
         PrintWriter out = response.getWriter();
         RespBean bean = RespBean.error("权限不足，请联系管理员！");
-        bean.setCode(403);
+        bean.setCode(401);
         out.write(new ObjectMapper().writeValueAsString(bean));
         out.flush();
         out.close();

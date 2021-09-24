@@ -6,11 +6,9 @@ import com.yjxxt.server.pojo.RespBean;
 import com.yjxxt.server.service.IAdminService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import jdk.nashorn.internal.runtime.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
@@ -21,16 +19,16 @@ public class LoginController {
     @Autowired
     private IAdminService iAdminService;
 
-    @ApiOperation(value = "登录之后返回token")
+    @ApiOperation(value = "用户登录")
     @PostMapping("login")
-    public RespBean login(AdminLoginParam adminLoginParam){
+    public RespBean login(@RequestBody AdminLoginParam adminLoginParam){
         return iAdminService.login(adminLoginParam.getUsername(),adminLoginParam.getPassword(),adminLoginParam.getCode());
     }
 
 
     @GetMapping("/admin/info")
     @ApiOperation(value = "获取当前用户信息")
-    public Admin getAdmininfo(Principal principal){
+    public Admin getAdminInfo(Principal principal){
         if(null==principal){
             return null;
         }
