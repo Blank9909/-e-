@@ -3,6 +3,8 @@ package com.yjxxt.server.service;
 import com.yjxxt.server.pojo.Role;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IRoleService extends IService<Role> {
 
+    public List<Role> queryRolesByAdminId(Integer adminId);
 }

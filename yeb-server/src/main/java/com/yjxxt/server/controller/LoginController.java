@@ -26,7 +26,7 @@ public class LoginController {
     }
 
 
-    @GetMapping("/admin/info")
+    /*@GetMapping("/admin/info")
     @ApiOperation(value = "获取当前用户信息")
     public Admin getAdminInfo(Principal principal){
         if(null==principal){
@@ -44,6 +44,6 @@ public class LoginController {
     @ApiOperation(value ="退出成功")
     public RespBean logout(){
         return RespBean.success("注销成功！");
-    }
+    }*/
 
 }

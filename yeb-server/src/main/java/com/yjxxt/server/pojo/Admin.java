@@ -4,8 +4,12 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+
+import java.beans.SimpleBeanInfo;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -13,7 +17,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.util.CollectionUtils;
 
 /**
  * <p>
@@ -67,9 +73,18 @@ public class Admin implements Serializable, UserDetails {
     @TableField(exist = false)  //设置用户为普通权限（不属于表的字段）
     private Collection<? extends GrantedAuthority> authorities;
 
+    @TableField(exist = false)
+    private List<Role> roleList;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.authorities;
+        if(!CollectionUtils.isEmpty(roleList)){
+            //返回登录用户拥有的权限
+            return roleList.stream()
+                    .map(r->new SimpleGrantedAuthority(r.getName()))
+                    .collect(Collectors.toList());
+        }
+        return null;
     }
 
     @Override

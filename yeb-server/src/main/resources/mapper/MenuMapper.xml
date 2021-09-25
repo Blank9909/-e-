@@ -34,9 +34,8 @@
             <result column="enabled2" property="enabled" />
         </collection>
     </resultMap>
-
-    <select id="queryAllMenusByAdminId" resultMap="menus">
-       SELECT DISTINCT
+    <select id="queryAllMenuByAdminId" resultMap="menus">
+         SELECT DISTINCT
             m1.*,
             m2.id AS id2,
             m2.component AS component2,
@@ -66,9 +65,8 @@
             <result column="rnameZh" property="nameZh"></result>
         </collection>
     </resultMap>
-
-    <select id="queryMenusWithRole" resultMap="menu_roles">
-        SELECT
+    <select id="queryMenuWithRole" resultMap="menu_roles">
+         SELECT
             m.*,
             r.id AS rid,
             r.name AS rname,
@@ -82,5 +80,6 @@
             AND mr.rid = r.id
             AND m.enabled =1
     </select>
+
 
 </mapper>

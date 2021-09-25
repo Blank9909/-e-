@@ -28,4 +28,9 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     public List<Menu> queryAllMenuByAdminId(Integer adminId) {
         return menuMapper.queryAllMenuByAdminId(adminId);
     }
+
+    @Override
+    public List<Menu> queryMenuWithRole() {
+        return menuMapper.queryMenuWithRole();
+    }
 }

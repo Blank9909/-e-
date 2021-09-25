@@ -16,4 +16,10 @@ import java.util.List;
 public interface IMenuService extends IService<Menu> {
 
     List<Menu> queryAllMenuByAdminId(Integer adminId);
+
+    /**
+     * 查询每个菜单拥有的角色
+     * @return
+     */
+    List<Menu> queryMenuWithRole();
 }
