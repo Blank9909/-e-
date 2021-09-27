@@ -27,7 +27,7 @@ public class AdminController {
     private IAdminService iAdminService;
 
     @GetMapping("/{id}")
-    @ApiOperation(value = "用户详情查询")
+    @ApiOperation(value = "根据ID查询用户信息")
     public Admin findAdminById(@PathVariable Integer id){
         return iAdminService.getById(id);
     }

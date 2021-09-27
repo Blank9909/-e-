@@ -8,13 +8,21 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="yeb-generator" />
+        <module name="yeb-mail" />
         <module name="yeb-server" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel target="8">
+      <module name="yeb-generator" target="11" />
+      <module name="yeb-mail" target="11" />
+      <module name="yeb-server" target="11" />
+      <module name="yeb_back" target="11" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="yeb-generator" options="-parameters" />
+      <module name="yeb-mail" options="-parameters" />
       <module name="yeb-server" options="-parameters" />
     </option>
   </component>
